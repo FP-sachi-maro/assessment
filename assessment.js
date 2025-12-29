@@ -1,7 +1,7 @@
 'use strict';
 const userNameInput    = document.getElementById('user-name');
 const assessmentButton = document.getElementById('assessment');
-const resultdivision   = document.getElementById('result-area');
+const resultDivision   = document.getElementById('result-area');
 const tweetDivision    = document.getElementById('tweet-area');
 
 assessmentButton.addEventListener(
@@ -14,16 +14,30 @@ assessmentButton.addEventListener(
     }
     
     // 診断結果表示エリアの作成
-    resultdivision.innerText = '';
-    const heading = document.createElement('h3');
-    heading.innerText = '診断結果';
-    resultdivision.appendChild(heading);
+    resultDivision.innerText = '';
+    
+    // headerDivision の作成
+    const headerDivision = document.createElement('div');
+    headerDivision.setAttribute('class', 'card-header text-bg-primary');
+    headerDivision.innerText = '診断結果';
+
+    // bodyDivision の作成
+    const bodyDivision = document.createElement('div');
+    bodyDivision.setAttribute('class', 'card-body');
 
     const paragraph = document.createElement('p');
-    const result    = assessment(userName);
+    paragraph.setAttribute('class', 'card-text');
+    const result = assessment(userName);
     paragraph.innerText = result;
-    resultdivision.appendChild(paragraph);
-  
+    bodyDivision.appendChild(paragraph);
+    
+    // resultDivision に　Bootstrap のスタイルを適用する
+    resultDivision.setAttribute('class','card');
+
+    // headerDivision と bodyDivision を resultDivision に差し込む
+    resultDivision.appendChild(headerDivision);
+    resultDivision.appendChild(bodyDivision);
+
     // ツイートエリアの作成
     tweetDivision.innerText = '';
     const anchor  =document.createElement('a');
@@ -53,6 +67,7 @@ userNameInput.addEventListener(
     }
   }
 )
+
 const answers = [
 '###userName###のいいところは声です。###userName###の特徴的な声は皆を惹きつけ、心に残ります。',
 '###userName###のいいところはまなざしです。###userName###に見つめられた人は、気になって仕方がないでしょう。',
@@ -100,7 +115,7 @@ const answers = [
    console.log('太郎');
    console.assert(
     assessment('太郎') ===
-　　'太郎のいいところは決断力です。太郎がする決断にいつも助けられる人がいます。',
+   '太郎のいいところは決断力です。太郎がする決断にいつも助けられる人がいます。',
    '診断結果の文言の特定の部分を名前に置き換える処理が正しくありません。'
    );
 
